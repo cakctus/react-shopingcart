@@ -10,23 +10,27 @@ const List = () => {
   )
 }
 
-const Title = () => {
-  return (
-    <div>
-      <h1>Title Component</h1>
-    </div>
-  )
+type TitleProps = {
+  title: string
+  text?: string
+}
+
+const Title: React.FC<TitleProps> = ({ title }) => {
+  return <h1>{title} Component</h1>
 }
 
 function App() {
   return (
-    <div>
+    <>
       <div>
         <List />
-        <Title />
+        <Title title={"title"} />
         <h1>App Component</h1>
       </div>
-    </div>
+      <div>
+        <p>Lorem ipsum dolor sit amet.</p>
+      </div>
+    </>
   )
 }
 
