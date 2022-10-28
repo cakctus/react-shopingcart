@@ -31,17 +31,10 @@ const ProdutsList = (props: Props) => {
         spacing={2}
       >
         {productsArray.map((product: Products, index: number) => {
-          const { id, name, description, capacity, price, type, img } = product
+          const { id } = product
           return (
             <Grid item xs={4} key={id}>
-              <ProductListItem
-                name={name}
-                description={description}
-                capacity={capacity}
-                price={price}
-                type={type}
-                img={img}
-              />
+              <ProductListItem product={product} />
             </Grid>
           )
         })}
