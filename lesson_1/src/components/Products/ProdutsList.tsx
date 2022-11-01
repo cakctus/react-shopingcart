@@ -15,9 +15,11 @@ type Products = {
   img: string
 }
 
-type Props = {}
+type Props = {
+  addProductsToCart: any
+}
 
-const ProdutsList = (props: Props) => {
+const ProdutsList = ({ addProductsToCart }: Props) => {
   return (
     <>
       <Typography variant="h2" style={{ textAlign: "center" }}>
@@ -34,7 +36,10 @@ const ProdutsList = (props: Props) => {
           const { id } = product
           return (
             <Grid item xs={4} key={id}>
-              <ProductListItem product={product} />
+              <ProductListItem
+                addProductsToCart={addProductsToCart}
+                product={product}
+              />
             </Grid>
           )
         })}

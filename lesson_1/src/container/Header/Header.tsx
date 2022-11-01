@@ -10,9 +10,12 @@ import Drawer from "components/Menu/Drawer"
 import CartHeader from "components/Cart/CartHeader"
 import logo from "../../assets/img/shop.svg"
 
-type Props = {}
+type Props = {
+  cartData: any
+  addProductsToCart: any
+}
 
-const Header = (props: Props) => {
+const Header = ({ cartData, addProductsToCart }: Props) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -23,7 +26,8 @@ const Header = (props: Props) => {
               <img src={logo} width="50px" alt="" />
             </Typography>
             <Menu />
-            <CartHeader />
+            <button onClick={() => addProductsToCart(1, 100)}>click</button>
+            <CartHeader cartData={cartData} />
           </Toolbar>
         </Container>
       </AppBar>

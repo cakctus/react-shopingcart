@@ -1,12 +1,14 @@
 import React from "react"
 import ProdutsList from "components/Products/ProdutsList"
 
-type Props = {}
+type Props = {
+  addProductsToCart: any
+}
 
-const Home = (props: Props) => {
+const Home = ({ addProductsToCart }: Props) => {
   return (
     <div>
-      <ProdutsList />{" "}
+      <ProdutsList addProductsToCart={addProductsToCart} />{" "}
     </div>
   )
 }
