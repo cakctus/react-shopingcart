@@ -1,25 +1,30 @@
 import { keys } from "lodash"
+import productsArray, {
+  getProductsObject,
+  ProductsType,
+} from "components/Products/products"
 
 type Props = {
   cartData: {
     [id: number]: number
   }
+  productsObject?: any
 }
 
-const CartHeader = ({ cartData }: Props) => {
-  console.log(cartData)
+const CartHeader = ({
+  cartData,
+  productsObject = getProductsObject(productsArray),
+}: Props) => {
+  console.log(productsObject)
   return (
     <div>
-      <div>
-        {Object.keys(cartData).map((item, index) => {
-          console.log(item)
-          return (
-            <div key={index}>
-              {item} : {cartData[parseInt(item)]}
-            </div>
-          )
-        })}
-      </div>
+      {Object.keys(cartData).map((item, index) => {
+        return (
+          <div key={index}>
+            {productsObject[parseInt(item)].name} :{cartData[parseInt(item)]}
+          </div>
+        )
+      })}
     </div>
   )
 }
