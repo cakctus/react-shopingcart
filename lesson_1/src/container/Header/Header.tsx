@@ -11,7 +11,9 @@ import CartHeader from "components/Cart/CartHeader"
 import logo from "../../assets/img/shop.svg"
 
 type Props = {
-  cartData: any
+  cartData: {
+    [id: number]: number
+  }
   addProductsToCart: any
 }
 
@@ -26,7 +28,6 @@ const Header = ({ cartData, addProductsToCart }: Props) => {
               <img src={logo} width="50px" alt="" />
             </Typography>
             <Menu />
-            <button onClick={() => addProductsToCart(1, 100)}>click</button>
             <CartHeader cartData={cartData} />
           </Toolbar>
         </Container>

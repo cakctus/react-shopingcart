@@ -1,15 +1,25 @@
-import React from "react"
+import { keys } from "lodash"
 
 type Props = {
-  cartData: any
+  cartData: {
+    [id: number]: number
+  }
 }
 
 const CartHeader = ({ cartData }: Props) => {
-  const { totalCount, totalPrice } = cartData
+  console.log(cartData)
   return (
     <div>
-      <div>{totalCount}</div>
-      <div>${totalPrice}</div>
+      <div>
+        {Object.keys(cartData).map((item, index) => {
+          console.log(item)
+          return (
+            <div key={index}>
+              {item} : {cartData[parseInt(item)]}
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
