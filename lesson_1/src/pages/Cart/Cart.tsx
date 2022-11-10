@@ -71,10 +71,13 @@ const CartPage = ({
                           <Button
                             variant="contained"
                             size="small"
-                            onClick={() =>
-                              decriment(productsObject[parseInt(item)].id)
-                            }
-                            disabled={productsObject[parseInt(item)].count <= 0}
+                            onClick={() => {
+                              productsObject[parseInt(item)].count === 1
+                                ? deleteProductFromCart(
+                                    productsObject[parseInt(item)].id
+                                  )
+                                : decriment(productsObject[parseInt(item)].id)
+                            }}
                           >
                             -
                           </Button>
