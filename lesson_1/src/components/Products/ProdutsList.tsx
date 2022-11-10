@@ -16,9 +16,11 @@ type Products = {
 
 type Props = {
   addProductsToCart: any
+  incriment: (id: number) => void
+  decriment: (id: number) => void
 }
 
-const ProdutsList = ({ addProductsToCart }: Props) => {
+const ProdutsList = ({ addProductsToCart, incriment, decriment }: Props) => {
   return (
     <>
       <Typography variant="h2" style={{ textAlign: "center" }}>
@@ -38,6 +40,8 @@ const ProdutsList = ({ addProductsToCart }: Props) => {
               <ProductListItem
                 addProductsToCart={addProductsToCart}
                 product={product}
+                incriment={incriment}
+                decriment={decriment}
               />
             </Grid>
           )

@@ -12,20 +12,27 @@ import "./ProductsListItem.scss"
 type Props = {
   product: any
   addProductsToCart: any
+  incriment: (id: number) => void
+  decriment: (id: number) => void
 }
 
-const ProductList = ({ product, addProductsToCart }: Props) => {
-  const { id, name, description, capacity, price, type, img } = product
+const ProductList = ({
+  product,
+  addProductsToCart,
+  incriment,
+  decriment,
+}: Props) => {
+  const { id, name, description, capacity, price, type, img, count } = product
 
-  const [count, setCount] = useState(1)
+  // const [count, setCount] = useState(1)
 
-  const incriment = () => {
-    setCount((prev: number) => prev + 1)
-  }
+  // const incriment = () => {
+  //   setCount((prev: number) => prev + 1)
+  // }
 
-  const decriment = () => {
-    setCount((prev: number) => prev - 1)
-  }
+  // const decriment = () => {
+  //   setCount((prev: number) => prev - 1)
+  // }
 
   return (
     <Card className="product">
@@ -47,7 +54,7 @@ const ProductList = ({ product, addProductsToCart }: Props) => {
           <Button
             variant="contained"
             size="small"
-            onClick={decriment}
+            onClick={() => decriment(id)}
             disabled={count <= 0}
           >
             -
@@ -56,7 +63,7 @@ const ProductList = ({ product, addProductsToCart }: Props) => {
           <Button
             variant="contained"
             size="small"
-            onClick={incriment}
+            onClick={() => incriment(id)}
             disabled={count >= 10}
           >
             +

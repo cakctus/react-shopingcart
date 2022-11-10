@@ -1,19 +1,16 @@
-import Button from "@mui/material/Button"
-import CartHeader from "components/Cart/CartHeader"
+import MenuItems from "./MenuItems"
+import "./menu.scss"
 
 type Props = {}
 
 const Menu = (props: Props) => {
-  const menu = ["Home", "About", "Price", "Shopping", "Cart"]
   return (
     <>
-      {menu.map((item, index) => {
-        return (
-          <Button color="inherit" key={index}>
-            {item}
-          </Button>
-        )
-      })}
+      <MenuItems to="/">Home</MenuItems>
+      <MenuItems to="/about">About</MenuItems>
+      <MenuItems to="/shipping">Shipping</MenuItems>
+      <MenuItems to="/price">Price</MenuItems>
+      <MenuItems to="/cart">Cart</MenuItems>
     </>
   )
 }

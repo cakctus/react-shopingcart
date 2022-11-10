@@ -1,17 +1,47 @@
+import { useState, useEffect } from "react"
+import productsArray, {
+  getProductsObject,
+  ProductsType,
+} from "components/Products/products"
 import CssBaseline from "@mui/material/CssBaseline"
 import Header from "container/Header/Header"
 import Main from "../Main/Main"
 import Footer from "../Footer/Footer"
-import { useState } from "react"
+import Cart from "../../pages/Cart/Cart"
 
-type Props = {}
+type Props = {
+  productsObject?: any
+}
 
 type AppProps = {
   [id: number]: number
 }
 
-const App = (props: Props) => {
+const App = ({ productsObject = getProductsObject(productsArray) }: Props) => {
   const [productsInCart, setProductsInCart] = useState<AppProps>({})
+
+  const [cartObjects, setCartObjects] = useState(productsObject)
+
+  useEffect(() => {
+    setCartObjects(productsObject)
+  }, [])
+
+  const incriment = (id: number) => {
+    console.log(productsObject[id])
+    const updateState = cartObjects[id]
+    updateState.count++
+    setCartObjects((prevState: any) => {
+      return { ...prevState, updateState }
+    })
+  }
+
+  const decriment = (id: number) => {
+    const updateState = cartObjects[id]
+    updateState.count--
+    setCartObjects((prevState: any) => {
+      return { ...prevState, updateState }
+    })
+  }
 
   const addProductsToCart = (id: number, count: number) => {
     setProductsInCart((prevState) => ({
@@ -20,9 +50,18 @@ const App = (props: Props) => {
     }))
   }
 
+  const deleteProductFromCart = (id: number) => {
+    setProductsInCart((prev) => {
+      console.log(prev, id)
+      const prevState = { ...prev }
+      delete prevState[id]
+      return prevState
+    })
+  }
+
   // const addProductsToCart = (count: number, price: nubmer) => {
   //   setProductsInCart(prev => {
-  //     price: prev.count + count,
+  //     count: prev.count + count,
   //     price: prev.price + price
   //   })
   // }
@@ -31,7 +70,13 @@ const App = (props: Props) => {
     <>
       <CssBaseline />
       <Header cartData={productsInCart} addProductsToCart={addProductsToCart} />
-      <Main addProductsToCart={addProductsToCart} />
+      <Main
+        addProductsToCart={addProductsToCart}
+        cartData={productsInCart}
+        deleteProductFromCart={deleteProductFromCart}
+        incriment={incriment}
+        decriment={decriment}
+      />
       <Footer />
     </>
   )

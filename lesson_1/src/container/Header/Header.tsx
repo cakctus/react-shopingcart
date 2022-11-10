@@ -19,7 +19,7 @@ type Props = {
 
 const Header = ({ cartData, addProductsToCart }: Props) => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, marginBottom: "2rem" }}>
       <AppBar position="static">
         <Container maxWidth="lg">
           <Toolbar>

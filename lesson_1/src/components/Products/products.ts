@@ -6,6 +6,7 @@ export type ProductsType = {
   price: number
   type: string
   img: string
+  count: number
 }
 
 const productsArray: ProductsType[] = [
@@ -17,6 +18,7 @@ const productsArray: ProductsType[] = [
     price: 500,
     type: "phone",
     img: "/public/images/blue.jpg",
+    count: 1,
   },
   {
     id: 2,
@@ -26,6 +28,7 @@ const productsArray: ProductsType[] = [
     price: 500,
     type: "phone",
     img: "/public/images/gold.jpg",
+    count: 1,
   },
   {
     id: 3,
@@ -35,6 +38,7 @@ const productsArray: ProductsType[] = [
     price: 500,
     type: "phone",
     img: "/public/images/green.jpg",
+    count: 1,
   },
   {
     id: 4,
@@ -44,6 +48,7 @@ const productsArray: ProductsType[] = [
     price: 500,
     type: "phone",
     img: "/public/images/blue.jpg",
+    count: 1,
   },
   {
     id: 5,
@@ -53,6 +58,7 @@ const productsArray: ProductsType[] = [
     price: 1000,
     type: "laptop",
     img: "/public/images/macbook.jpg",
+    count: 1,
   },
   {
     id: 6,
@@ -62,6 +68,7 @@ const productsArray: ProductsType[] = [
     price: 1000,
     type: "laptop",
     img: "/public/images/macbookair.jpeg",
+    count: 1,
   },
   {
     id: 7,
@@ -71,6 +78,7 @@ const productsArray: ProductsType[] = [
     price: 1000,
     type: "laptop",
     img: "/public/images/galaxy.png",
+    count: 1,
   },
 ]
 
