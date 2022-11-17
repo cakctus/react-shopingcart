@@ -26,7 +26,7 @@ const CartHeader = ({
           </div>
         )
       })}
-      <div>
+      {/* <div>
         Total:
         {keys(cartData).reduce(
           (sum, productId) =>
@@ -36,7 +36,7 @@ const CartHeader = ({
           0
         )}
         $
-      </div>
+      </div> */}
       <CartTotal cartData={cartData} />
     </div>
   )

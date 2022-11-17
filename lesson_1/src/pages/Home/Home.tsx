@@ -1,6 +1,7 @@
 import React from "react"
 import ProdutsList from "components/Products/ProdutsList"
 import CartPage from "pages/Cart/Cart"
+import Reviews from "components/Reviews/Reviews"
 
 type Props = {
   addProductsToCart: any
@@ -16,6 +17,7 @@ const Home = ({ addProductsToCart, incriment, decriment }: Props) => {
         incriment={incriment}
         decriment={decriment}
       />
+      <Reviews />
     </div>
   )
 }

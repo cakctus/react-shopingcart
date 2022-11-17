@@ -7,6 +7,9 @@ import {
   TextField,
 } from "@mui/material"
 
+import FavoriteIcon from "@mui/icons-material/Favorite"
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
+
 import "./ProductsListItem.scss"
 
 type Props = {
@@ -14,6 +17,7 @@ type Props = {
   addProductsToCart: any
   incriment: (id: number) => void
   decriment: (id: number) => void
+  isLiked?: boolean
 }
 
 const ProductList = ({
@@ -21,6 +25,7 @@ const ProductList = ({
   addProductsToCart,
   incriment,
   decriment,
+  isLiked = false,
 }: Props) => {
   const { id, name, description, capacity, price, type, img, count } = product
 
@@ -40,6 +45,8 @@ const ProductList = ({
         <div className="product-images">
           <img src={img} alt="" />
         </div>
+        <Button>{isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}</Button>
+
         <h4>{name}</h4>
         <p className="product-description">{description}</p>
         <div className="product-features">
