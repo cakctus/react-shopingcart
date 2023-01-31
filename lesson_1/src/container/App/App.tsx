@@ -17,8 +17,21 @@ type AppProps = {
   [id: number]: number
 }
 
+type ProductsLikeState = {
+  [id: number]: boolean
+}
+
 const App = ({ productsObject = getProductsObject(productsArray) }: Props) => {
   const [productsInCart, setProductsInCart] = useState<AppProps>({})
+
+  const [productsLikeState, setProductsLikeState] = useState<ProductsLikeState>(
+    {
+      1: true,
+      2: true,
+    }
+  )
+
+  console.log(productsObject)
 
   const [cartObjects, setCartObjects] = useState(productsObject)
 
@@ -27,7 +40,6 @@ const App = ({ productsObject = getProductsObject(productsArray) }: Props) => {
   }, [])
 
   const incriment = (id: number) => {
-    console.log(productsObject[id])
     const updateState = cartObjects[id]
     updateState.count++
     setCartObjects((prevState: any) => {
@@ -59,6 +71,13 @@ const App = ({ productsObject = getProductsObject(productsArray) }: Props) => {
     })
   }
 
+  const toggleLikeState = (id: number) => {
+    setProductsLikeState((prevState: ProductsLikeState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }))
+  }
+
   // const addProductsToCart = (count: number, price: nubmer) => {
   //   setProductsInCart(prev => {
   //     count: prev.count + count,
@@ -76,8 +95,9 @@ const App = ({ productsObject = getProductsObject(productsArray) }: Props) => {
         deleteProductFromCart={deleteProductFromCart}
         incriment={incriment}
         decriment={decriment}
+        productsLikeState={productsLikeState}
+        toggleLikeState={toggleLikeState}
       />
-      <Footer />
     </>
   )
 }

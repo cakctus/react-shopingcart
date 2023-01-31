@@ -5,39 +5,33 @@ import productsArray, {
 } from "components/Products/products"
 import CartTotal from "./CartTotal"
 
+import { useAppSelector } from "../../redux/hooks"
+
 type Props = {
-  cartData: {
+  cartData?: {
     [id: number]: number
   }
   productsObject?: any
 }
 
-const CartHeader = ({
-  cartData,
-  productsObject = getProductsObject(productsArray),
-}: Props) => {
+const CartHeader = (props: Props) => {
+  const { productsObject } = useAppSelector((state: any) => state.cart)
+  const addToCart = useAppSelector((state: any) => state.addToCart)
+
   return (
     <div>
-      {Object.keys(cartData).map((item, index) => {
+      {Object.keys(addToCart).map((item, index) => {
         return (
           <div key={index}>
-            {productsObject[parseInt(item)].name} :{cartData[parseInt(item)]}{" "}
-            {productsObject[parseInt(item)].price * cartData[parseInt(item)]}
+            {productsObject[parseInt(item)].name} :
+            <span>{addToCart[parseInt(item)]} </span>
+            <span>
+              {productsObject[parseInt(item)].price * addToCart[parseInt(item)]}
+            </span>
           </div>
         )
       })}
-      {/* <div>
-        Total:
-        {keys(cartData).reduce(
-          (sum, productId) =>
-            sum +
-            productsObject[parseInt(productId)].price *
-              cartData[parseInt(productId)],
-          0
-        )}
-        $
-      </div> */}
-      <CartTotal cartData={cartData} />
+      <CartTotal />
     </div>
   )
 }

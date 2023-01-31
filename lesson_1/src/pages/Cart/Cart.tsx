@@ -1,9 +1,3 @@
-import { useState, useEffect } from "react"
-import { keys } from "lodash"
-import productsArray, {
-  getProductsObject,
-  ProductsType,
-} from "components/Products/products"
 import {
   Button,
   Card,
@@ -13,24 +7,20 @@ import {
   Grid,
 } from "@mui/material"
 import Box from "@mui/material/Box"
-
 import CartTotal from "components/Cart/CartTotal"
 
-type Props = {
-  productsObject?: any
-  cartData: any
-  deleteProductFromCart: any
-  incriment: (id: number) => void
-  decriment: (id: number) => void
-}
+import { useAppSelector, useAppDispatch } from "redux/hooks"
+import { increment, decrement } from "redux/cartReducer"
+import { removeFromCart, addToCart } from "redux/addToCartReducer"
 
-const CartPage = ({
-  productsObject = getProductsObject(productsArray),
-  incriment,
-  decriment,
-  cartData,
-  deleteProductFromCart,
-}: Props) => {
+type Props = {}
+
+const CartPage = (props: Props) => {
+  const productsInCart = useAppSelector((state: any) => state.addToCart)
+  const { productsObject } = useAppSelector((state: any) => state.cart)
+
+  const dispatch = useAppDispatch()
+
   return (
     <>
       <Grid
@@ -41,7 +31,7 @@ const CartPage = ({
         alignItems="center"
         gap="1rem"
       >
-        {Object.keys(cartData).map((item, index) => {
+        {Object.keys(productsInCart).map((item, index) => {
           return (
             <Box sx={{ width: 1 }}>
               <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1}>
@@ -59,12 +49,12 @@ const CartPage = ({
 
                         <div className="product-features">
                           <span>Count:</span>
-                          {cartData[parseInt(item)]}
+                          {productsInCart[parseInt(item)]}
                         </div>
                         <div className="product-price">
                           <span>Price:</span>
                           {productsObject[parseInt(item)].price *
-                            cartData[parseInt(item)]}
+                            productsInCart[parseInt(item)]}
                           $
                         </div>
                         <div className="product-quantity">
@@ -73,10 +63,14 @@ const CartPage = ({
                             size="small"
                             onClick={() => {
                               productsObject[parseInt(item)].count === 1
-                                ? deleteProductFromCart(
-                                    productsObject[parseInt(item)].id
+                                ? dispatch(
+                                    removeFromCart(
+                                      productsObject[parseInt(item)].id
+                                    )
                                   )
-                                : decriment(productsObject[parseInt(item)].id)
+                                : dispatch(
+                                    decrement(productsObject[parseInt(item)].id)
+                                  )
                             }}
                           >
                             -
@@ -90,7 +84,9 @@ const CartPage = ({
                             variant="contained"
                             size="small"
                             onClick={() =>
-                              incriment(productsObject[parseInt(item)].id)
+                              dispatch(
+                                increment(productsObject[parseInt(item)].id)
+                              )
                             }
                             disabled={
                               productsObject[parseInt(item)].count >= 10
@@ -104,12 +100,27 @@ const CartPage = ({
                         <Button
                           variant="outlined"
                           onClick={() =>
-                            deleteProductFromCart(
-                              productsObject[parseInt(item)].id
+                            dispatch(
+                              removeFromCart(productsObject[parseInt(item)].id)
                             )
                           }
                         >
                           remove
+                        </Button>
+                      </CardActions>
+                      <CardActions className="btn-wrap">
+                        <Button
+                          variant="outlined"
+                          onClick={() =>
+                            dispatch(
+                              addToCart({
+                                id: productsObject[parseInt(item)].id,
+                                count: productsObject[parseInt(item)].count,
+                              })
+                            )
+                          }
+                        >
+                          change quantity
                         </Button>
                       </CardActions>
                     </Card>
@@ -121,7 +132,7 @@ const CartPage = ({
         })}
       </Grid>
 
-      <CartTotal cartData={cartData} />
+      <CartTotal />
     </>
   )
 }

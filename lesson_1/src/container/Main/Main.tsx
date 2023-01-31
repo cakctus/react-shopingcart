@@ -13,6 +13,8 @@ type Props = {
   deleteProductFromCart: any
   incriment: (id: number) => void
   decriment: (id: number) => void
+  productsLikeState: any
+  toggleLikeState: (id: number) => void
 }
 
 const Main = ({
@@ -21,6 +23,8 @@ const Main = ({
   deleteProductFromCart,
   incriment,
   decriment,
+  productsLikeState,
+  toggleLikeState,
 }: Props) => {
   return (
     <main>
@@ -33,20 +37,12 @@ const Main = ({
                 addProductsToCart={addProductsToCart}
                 incriment={incriment}
                 decriment={decriment}
+                productsLikeState={productsLikeState}
+                toggleLikeState={toggleLikeState}
               />
             }
           />
-          <Route
-            path="/cart"
-            element={
-              <Cart
-                cartData={cartData}
-                deleteProductFromCart={deleteProductFromCart}
-                incriment={incriment}
-                decriment={decriment}
-              />
-            }
-          />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/payments" element={<Payments />} />
           <Route path="/about" element={<About />} />

@@ -10,34 +10,29 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 
+import { useAppDispatch, useAppSelector } from "./../../redux/hooks"
+import { useSelector, useDispatch } from "react-redux"
+import { addLike } from "redux/likeReducer"
+import { increment, decrement } from "redux/cartReducer"
+import { addToCart, removeFromCart } from "redux/addToCartReducer"
+
 import "./ProductsListItem.scss"
 
 type Props = {
   product: any
-  addProductsToCart: any
-  incriment: (id: number) => void
-  decriment: (id: number) => void
-  isLiked?: boolean
+  addProductsToCart?: any
+  incriment?: (id: number) => void
+  decriment?: (id: number) => void
+  productsLikeState?: any
+  toggleLikeState?: (id: number) => void
 }
 
-const ProductList = ({
-  product,
-  addProductsToCart,
-  incriment,
-  decriment,
-  isLiked = false,
-}: Props) => {
-  const { id, name, description, capacity, price, type, img, count } = product
+const ProductList = ({ product }: Props) => {
+  const { id, name, description, capacity, price, type, img } = product
+  const isLiked = useAppSelector((state: any) => state.likes)
+  const count = useAppSelector((state: any) => state.cart)
 
-  // const [count, setCount] = useState(1)
-
-  // const incriment = () => {
-  //   setCount((prev: number) => prev + 1)
-  // }
-
-  // const decriment = () => {
-  //   setCount((prev: number) => prev - 1)
-  // }
+  const dispatch = useDispatch()
 
   return (
     <Card className="product">
@@ -45,7 +40,9 @@ const ProductList = ({
         <div className="product-images">
           <img src={img} alt="" />
         </div>
-        <Button>{isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}</Button>
+        <Button onClick={() => dispatch(addLike(id))}>
+          {isLiked[id] ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </Button>
 
         <h4>{name}</h4>
         <p className="product-description">{description}</p>
@@ -61,24 +58,35 @@ const ProductList = ({
           <Button
             variant="contained"
             size="small"
-            onClick={() => decriment(id)}
-            disabled={count <= 0}
+            onClick={() => dispatch(decrement(id))}
+            disabled={count.productsObject[id].count <= 0}
           >
             -
           </Button>
-          <TextField size="small" value={count} variant="outlined" />
+          <TextField
+            size="small"
+            value={count.productsObject[id].count}
+            variant="outlined"
+          />
           <Button
             variant="contained"
             size="small"
-            onClick={() => incriment(id)}
-            disabled={count >= 10}
+            onClick={() => dispatch(increment(id))}
+            disabled={count.productsObject[id].count >= 10}
           >
             +
           </Button>
         </div>
       </CardContent>
       <CardActions className="btn-wrap">
-        <Button variant="outlined" onClick={() => addProductsToCart(id, count)}>
+        <Button
+          variant="outlined"
+          onClick={() =>
+            dispatch(
+              addToCart({ id: id, count: count.productsObject[id].count })
+            )
+          }
+        >
           Add to cart
         </Button>
       </CardActions>

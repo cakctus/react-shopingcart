@@ -3,26 +3,22 @@ import productsArray, {
   ProductsType,
 } from "components/Products/products"
 import { keys } from "lodash"
+import { useAppSelector } from "redux/hooks"
 
-type Props = {
-  cartData: {
-    [id: number]: number
-  }
-  productsObject?: any
-}
+type Props = {}
 
-const CartTotal = ({
-  cartData,
-  productsObject = getProductsObject(productsArray),
-}: Props) => {
+const CartTotal = (props: Props) => {
+  const { productsObject } = useAppSelector((state: any) => state.cart)
+  const productsInCart = useAppSelector((state: any) => state.addToCart)
+
   return (
     <div>
       Total:
-      {keys(cartData).reduce(
+      {keys(productsInCart).reduce(
         (sum, productId) =>
           sum +
           productsObject[parseInt(productId)].price *
-            cartData[parseInt(productId)],
+            productsInCart[parseInt(productId)],
         0
       )}
       $
